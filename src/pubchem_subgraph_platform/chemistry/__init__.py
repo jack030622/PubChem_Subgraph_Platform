@@ -1,0 +1,1 @@
+"""Chemistry module; implementation pending."""

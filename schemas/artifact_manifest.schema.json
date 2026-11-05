@@ -1,0 +1,204 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "complete"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "shards": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "fit_scope": {
+            "enum": [
+              "train_only",
+              "meta_train_only",
+              "support_only"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "split_id": {
+            "minLength": 1,
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "enum": [
+              "fingerprints",
+              "index"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "standardization_version": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "vocabulary_id": {
+            "minLength": 1,
+            "type": "string"
+          }
+        }
+      }
+    }
+  ],
+  "properties": {
+    "artifact_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "config_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "environment_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "fit_scope": {
+      "enum": [
+        "not_fitted",
+        "train_only",
+        "meta_train_only",
+        "support_only",
+        "external_unlabeled",
+        "transductive"
+      ]
+    },
+    "input_artifact_ids": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "kind": {
+      "enum": [
+        "dataset",
+        "vocabulary",
+        "fingerprints",
+        "index",
+        "predictions",
+        "evaluation",
+        "checkpoint"
+      ]
+    },
+    "manifest_version": {
+      "const": "0.1"
+    },
+    "parent_artifact_id": {
+      "minLength": 1,
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "seed": {
+      "minimum": 0,
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "shards": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "minLength": 1,
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*[:\\\\]).+$",
+            "type": "string"
+          },
+          "row_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "sha256",
+          "row_count"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "source_commit": {
+      "pattern": "^[0-9a-f]{40}$",
+      "type": "string"
+    },
+    "split_id": {
+      "minLength": 1,
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "standardization_version": {
+      "minLength": 1,
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "enum": [
+        "staging",
+        "complete",
+        "failed"
+      ]
+    },
+    "vocabulary_id": {
+      "minLength": 1,
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "manifest_version",
+    "artifact_id",
+    "kind",
+    "status",
+    "input_artifact_ids",
+    "source_commit",
+    "config_sha256",
+    "environment_id",
+    "fit_scope",
+    "split_id",
+    "standardization_version",
+    "vocabulary_id",
+    "seed",
+    "shards"
+  ],
+  "title": "Platform artifact manifest",
+  "type": "object"
+}

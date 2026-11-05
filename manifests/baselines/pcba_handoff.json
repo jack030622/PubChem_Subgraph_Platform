@@ -1,0 +1,46 @@
+{
+  "commit": "6492777c42d93d8b9978bb5d93d14d197a614332",
+  "gs_meta": {
+    "baseline_id": "original-sider-10shot-v1",
+    "dataset": "SIDER",
+    "evaluation_interval": 100,
+    "roc_auc_percent_mean": 83.9388,
+    "roc_auc_percent_population_sd": 0.162,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "selection": "best_test",
+    "shots": 10,
+    "steps": 2000
+  },
+  "limitations": [
+    "SSM results are selected development CV; final outer holdout pending.",
+    "Exact DiSC-2 retained zero pairs.",
+    "GS-Meta SIDER aggregate uses best-test checkpoint selection.",
+    "Separate seed-0 checkpoint does not underlie the aggregate; discrepancy unresolved.",
+    "Historical checkpoints lack optimizer and RNG state for exact resume."
+  ],
+  "manifest_version": "0.1",
+  "reference_documents": [
+    "docs/PROJECT_HANDOFF.md",
+    "docs/GS_META_BASELINE.md",
+    "WORKTREES.md"
+  ],
+  "repository": "https://github.com/jack030622/pcba_project.git",
+  "role": "read_only_reference",
+  "tag": "pcba-research-handoff-20261005",
+  "upstream_commits": {
+    "GS-Meta": "3173f295b657a60addbdc52604ab6d75a47a9e5e",
+    "SSM": "6e82e4a41214bed446b30cc225935ec40a31555e",
+    "SSM_optimised": "e74af46bd92844f3fe4f883eb9596f5c8b8cd9c1"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "charge_policy": null,
+  "config_version": "0.1",
+  "emit_failures": true,
+  "isotope_policy": null,
+  "policy_id": null,
+  "preserve_raw": true,
+  "salt_policy": null,
+  "sanitize": true,
+  "status": "template",
+  "stereochemistry_policy": null,
+  "tautomer_policy": null,
+  "toolkit": "RDKit",
+  "toolkit_version": null
+}

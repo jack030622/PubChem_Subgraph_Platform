@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pubchem-subgraph-platform"
+version = "0.1.0"
+description = "Subgraph vocabularies, molecule retrieval, and structural-prior research"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+psp = "pubchem_subgraph_platform.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

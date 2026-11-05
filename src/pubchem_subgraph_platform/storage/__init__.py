@@ -1,0 +1,1 @@
+"""Storage module; implementation pending."""

@@ -1,0 +1,30 @@
+{
+  "config_version": "0.1",
+  "dataset": "SIDER",
+  "encoder_changes": false,
+  "evaluation_interval": 100,
+  "lambda": 0.0,
+  "lambda_zero_path": "unchanged_baseline",
+  "mixing": "pre_top_k_convex",
+  "molecule_property_edge_changes": false,
+  "prior": "brics",
+  "protocol": "validation_selected",
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "shots": 10,
+  "split_id": null,
+  "status": "template",
+  "steps": 2000,
+  "structural_fit_scope": "meta_train_only",
+  "task_selector_changes": false
+}

@@ -1,0 +1,13 @@
+{
+  "backend": "exact_sparse",
+  "config_version": "0.1",
+  "eligibility_manifest": null,
+  "empty_similarity": 0.0,
+  "exclude_query_identity": true,
+  "index_id": null,
+  "k": 20,
+  "metric": "binary_jaccard",
+  "positive_similarity_only": true,
+  "status": "template",
+  "tie_break": "molecule_id_ascending"
+}

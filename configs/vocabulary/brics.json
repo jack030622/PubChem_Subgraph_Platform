@@ -1,0 +1,14 @@
+{
+  "backend": "brics",
+  "config_version": "0.1",
+  "encoding": "binary",
+  "feature_order": "component_id_ascending",
+  "fit_scope": "train_only",
+  "keep_non_leaf_nodes": false,
+  "min_document_frequency": 1,
+  "min_fragment_size": 1,
+  "preserve_attachment_labels": true,
+  "split_id": null,
+  "status": "template",
+  "transform_mutates_vocabulary": false
+}

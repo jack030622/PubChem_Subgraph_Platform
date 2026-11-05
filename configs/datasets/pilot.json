@@ -1,0 +1,16 @@
+{
+  "artifact_root_env": "PSP_ARTIFACT_ROOT",
+  "config_version": "0.1",
+  "data_root_env": "PSP_DATA_ROOT",
+  "download_enabled": false,
+  "max_workers": 1,
+  "sampling": {
+    "method": null,
+    "seed": 0
+  },
+  "snapshot_id": null,
+  "source": "PubChem",
+  "source_manifest": null,
+  "status": "template",
+  "target_molecules": 10000
+}
