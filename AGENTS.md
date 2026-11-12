@@ -2,6 +2,8 @@
 
 These rules apply throughout this repository. Explicit user instructions take precedence. Preserve unrelated user changes.
 
+Both GPU-server and local-notebook agents follow this file. The shared checkout protocol is in [docs/agent-workflow.md](docs/agent-workflow.md); machine-local paths and credentials are not project defaults.
+
 ## Boundaries
 
 - Develop the new platform here. Treat `pcba_project`, archived worktrees, baseline artifacts, source data, and their environments as read-only.
@@ -10,6 +12,8 @@ These rules apply throughout this repository. Explicit user instructions take pr
 - Routine local implementation and relevant checks need no additional confirmation. Do not push, publish, change remote settings, send messages, or launch paid jobs unless authorized.
 - Do not start full-corpus downloads or long training as incidental validation. Use bounded fixtures and task-specific resource budgets.
 - Do not delegate to sub-agents unless explicitly requested by the user or task. If authorized, assign disjoint ownership and validate integration.
+- Work on a task-specific branch in each environment. Claim one task in its task file before implementation; do not edit files owned by the other active agent without coordinating the handoff. Never share a writable checkout or push directly to `main` as routine agent work.
+- Fetch before starting, inspect the worktree before switching or integrating, and do not reset, clean, force-push, or overwrite another agent's commits. Record a branch, commit, validation, and open questions at handoff.
 
 ## Workflow
 
@@ -19,12 +23,15 @@ These rules apply throughout this repository. Explicit user instructions take pr
 4. Run meaningful checks for changed behavior, including leakage, version compatibility, restart safety, and parity where applicable.
 5. Record commands, results, artifact identities, and limitations in the task evidence. Mark `done` only when acceptance criteria pass.
 6. Update the specification and an ADR for changes to scientific protocols or shared contracts. Never silently change a split or metric.
+7. Treat the assay-selection meeting brief as a proposal. Do not silently replace the accepted research direction or phase-1/phase-2 evaluation order before a recorded decision.
 
 ## Data and research correctness
 
 - Preserve raw records, snapshot IDs, checksums, and standardization versions. Distinguish PubChem CID/SID from internal molecule IDs.
 - Missing, inconclusive, and conflicting labels are not automatically inactive. Preserve observations before aggregation.
 - Fit supervised vocabularies, IDF, selection, calibration, and thresholds only within the registered protocol's training/validation scope. Never fit on query/test labels or held-out task labels.
+- Keep global structural clusters label-free. Record whether the structural corpus is strictly inductive or transductive; never describe held-out outcomes as unknown ground truth.
+- Separate global candidate search, assay-specific reranking, graph evidence, and GBA in ablations. Compare methods at matched candidate and label budgets; preserve exact-search recall when clusters restrict candidates.
 - Separate structural component IDs from vocabulary-local feature indices. Reject fingerprint, vocabulary, standardization, and index mismatches.
 - Store predictions separately from observations. Never turn inferred labels into evidence automatically.
 - Freeze feature order and record seeds, config/source hashes, dependencies, and fit scope. Define invalid, empty, and OOV behavior.

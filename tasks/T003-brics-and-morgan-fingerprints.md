@@ -6,13 +6,13 @@ Dependencies: T001, T002, T006
 
 ## Goal and deliverables
 
-Implement training-scoped BRICS vocabulary and a Morgan comparator with immutable binary encodings.
+Implement a shared, label-free BRICS structural vocabulary and a Morgan comparator with immutable binary encodings. State whether its structural fit corpus is strictly inductive or a frozen external/transductive snapshot.
 
 ## Acceptance criteria
 
 - Freeze component IDs, vocabulary ordering, toolkit and representation policy.
 - Test attachment labels, empty/all-OOV molecules and canonical reparse behavior.
-- Separate fit/transform; queries cannot append columns.
+- Separate fit/transform; queries cannot append columns. Global features and any cluster-ready encoding use no assay outcomes.
 - Record Morgan parameters/collision semantics separately from interpretable BRICS component IDs.
 - Measure vocabulary size, nonzeros per molecule and OOV/coverage on frozen pilot splits.
 

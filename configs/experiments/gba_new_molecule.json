@@ -1,0 +1,15 @@
+{
+  "calibration": "none",
+  "config_version": "0.1",
+  "min_evidence": 1,
+  "neighbor_policy": "global_top_k_then_assay_filter",
+  "phase": 2,
+  "promote_predictions_to_observations": false,
+  "score_kind": "uncalibrated_weighted_vote",
+  "split": "identity_grouped_scaffold",
+  "split_id": null,
+  "status": "template",
+  "task": "new_molecule_known_assay",
+  "weight": "similarity",
+  "zero_weight_policy": "abstain"
+}

@@ -9,6 +9,8 @@ SSM results are selected development CV, not final outer holdout. Exact DiSC-2 r
 
 Notion motivates structural priors, retrieval, and GBA. The 10-million molecule and 1-million component figures are illustrative. Collaborator Rust/SSM-BRICS availability and licensing require verification.
 
-Implementation references: [RDKit BRICS](https://www.rdkit.org/docs/source/rdkit.Chem.BRICS.html) and [PubChem downloads](https://pubchem.ncbi.nlm.nih.gov/docs/downloads). Verify concrete resource formats and current access rules during implementation.
+Implementation references: [RDKit BRICS](https://www.rdkit.org/docs/source/rdkit.Chem.BRICS.html), [PubChem downloads](https://pubchem.ncbi.nlm.nih.gov/docs/downloads), and [SubDyve](https://proceedings.iclr.cc/paper_files/paper/2026/hash/02cf868040aa0f0a1e1121cf255fdcfb-Abstract-Conference.html). SubDyve already combines SSM fingerprints, molecular similarity networks, and activity propagation; compare it when claiming method novelty. Verify concrete resource formats and current access rules during implementation.
+
+Assay-selection literature for the next research discussion: [AssayMatch](https://arxiv.org/html/2511.16087), [MetaHeta](https://arxiv.org/html/2610.07079), and [Assay2Mol](https://aclanthology.org/2025.emnlp-main.1390.pdf). See [the meeting brief](research/assay-selection-brief.md) for their different inputs, outputs, evidence, and the proposed pilot question.
 
 Historical local baseline: `/data/project/jack030622/pcba_project`. Put machine-specific runtime paths in untracked environment configuration; never write into this baseline.

@@ -10,7 +10,7 @@ The command names below are planned interfaces. The scaffold implements only hel
 
 `psp vocab fit` and `psp fingerprints encode`: separate fit and transform. Backends are BRICS, training-label SSM, SSM-to-BRICS, and a Morgan comparator. Freeze feature order; record frequency/size limits, coverage, and OOV. Fit IDF on the allowed corpus only.
 
-For multi-assay SSM, select within training partitions/tasks, union structural identities, and preserve per-assay scores with selection budgets. A supervised PubChem-wide vocabulary requires explicit labels and fit scope. Map SSM candidates to containing BRICS fragments under defined attachment semantics. Cross-fragment candidates are initially unmapped; bounded union expansion is a separate experiment. Report mapping multiplicity and failure rates. Rust acceleration requires reference parity before replacement.
+Build a frozen common BRICS vocabulary from the permitted structural corpus, then select SSM patterns separately using each assay's allowed training labels. Map the selected patterns to BRICS components; preserve per-assay scores, label budgets, mapping multiplicity, and provenance when sharing structural identities across assays. A supervised PubChem-wide vocabulary requires explicit labels and fit scope. Map SSM candidates to containing BRICS fragments under defined attachment semantics. Cross-fragment candidates are initially unmapped; bounded union expansion is a separate experiment. Report mapping multiplicity and failure rates. Rust acceleration requires reference parity before replacement.
 
 ## Retrieval
 
@@ -18,9 +18,13 @@ For multi-assay SSM, select within training partitions/tasks, union structural i
 
 Use inverted postings, then exact reranking. Candidate truncation/common-fragment pruning/approximate backends require recall-at-k checks against the exact oracle. Return molecule ID, score, shared components, and index version. Fewer than k positive matches is valid. Reject incompatible versions.
 
+Global structural clusters use BRICS or Morgan features without assay outcomes. Register the algorithm, version, feature coverage, and cluster membership. Compare cluster stability and held-out assay consistency; do not treat a visually separated map as biological validation. If a cluster limits candidate search, measure lost exact-search neighbors and active chemotypes.
+
+Assay-conditioned reranking is the central proposed method: retrieve global structural candidates, then score them with SSM patterns selected for the query AID and their BRICS mapping. Keep the original candidate rank, reranked score, shared components, and observed evidence. Compare Morgan-only, BRICS-only, SSM-only, and hybrid scores under the same candidate pool and label access. A molecule-assay evidence graph may expose observed labels and provenance; graph propagation needs a separate ablation against the same retrieval without propagation.
+
 ## GBA
 
-`psp predict gba`: initial policy is global top-k retrieval followed by assay-label filtering. Declare this explicitly and report lost coverage. Only eligible observed binary labels contribute. Score is sum(weight * label) / sum(weight), with nonnegative similarity weights and frozen k/min-similarity/min-evidence parameters selected on validation.
+`psp predict gba`: the baseline policy is global top-k retrieval followed by assay-label filtering. A later assay-conditioned policy may rerank or retrieve with assay-specific features; distinguish its candidate pool and label budget from the baseline. Declare this explicitly and report lost coverage. Only eligible observed binary labels contribute. Score is sum(weight * label) / sum(weight), with nonnegative similarity weights and frozen k/min-similarity/min-evidence parameters selected on validation.
 
 No effective positive weight or insufficient neighbors produces insufficient_evidence and a null score. Return neighbor evidence and coverage. Calibrate on validation predictions if probability claims are needed. Never feed predictions into the observation table.
 

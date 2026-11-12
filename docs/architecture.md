@@ -1,6 +1,6 @@
 # Platform architecture
 
-The core produces versioned molecule identities, component vocabularies, and sparse fingerprints. Retrieval feeds GBA; GS-Meta consumes structural features through an isolated adapter. Consumers do not redefine data identity.
+The central hypothesis is that a shared structural BRICS vocabulary linked to assay-specific SSM subgraphs can improve evidence retrieval across assays, especially with few labels, while making retrieved motifs inspectable. Morgan fingerprints are a matched baseline and potential complement, not a required replacement. The core produces versioned molecule identities, component vocabularies, and sparse fingerprints. GS-Meta consumes structural features through an isolated adapter. Consumers do not redefine data identity.
 
 | Module | Responsibility |
 | --- | --- |
@@ -9,28 +9,31 @@ The core produces versioned molecule identities, component vocabularies, and spa
 | vocabulary | Component registry, structural fit, supervised selection, hybrid mapping |
 | fingerprints | Immutable binary/count encoding, feature order, OOV statistics |
 | storage | Versioned tables, manifests, staging and atomic completion |
-| retrieval | Exact scoring, candidate indices, reranking, eligibility filters |
+| retrieval | Exact scoring, candidate indices, assay-conditioned reranking, eligibility filters |
+| clustering | Label-free structural neighborhoods and cluster assignments with versioned parameters |
 | prediction | GBA evidence, calibration, abstention |
 | evaluation | Splits, label masks, leakage checks, metrics |
 | integrations | Upstream compatibility and GS-Meta prior injection |
 
 ```mermaid
 flowchart LR
-  A[Source snapshot] --> B[Standardization]
-  B --> C[Molecule store]
-  C --> D[Component vocabulary]
-  D --> E[Sparse fingerprints]
-  E --> F[Similarity index]
-  F --> G[GBA]
-  E --> H[GS Meta prior]
-  I[Training labels and split] --> D
-  I --> G
-  I --> H
+  A[PubChem snapshot] --> B[Standardized molecule and observation store]
+  B --> C[Shared BRICS vocabulary]
+  C --> D[Structural fingerprints and clusters]
+  D --> E[Global candidate search]
+  B --> F[Assay training labels]
+  F --> G[Assay-specific SSM selection]
+  C --> G
+  E --> H[Assay-conditioned reranking]
+  G --> H
+  H --> I[Evidence-linked GBA]
+  B --> I
+  C --> J[GS-Meta prior, secondary]
 ```
 
 ## Storage and environments
 
-Start with a single-machine shard pipeline, Parquet tables, DuckDB analysis, and sparse rows/inverted postings. Dependencies are selected and locked during implementation. A hosted API or distributed engine is outside the first milestone.
+Start with a single-machine shard pipeline, Parquet tables, DuckDB analysis, and sparse rows/inverted postings. Global BRICS clustering uses structure only. Assay-specific SSM selection and reranking use only labels allowed by the split. Store molecule-component, molecule-molecule similarity, and observed molecule-assay links as versioned evidence; graph learning is a later ablation, not a prerequisite for retrieval. Cluster pruning must be checked against full-corpus exact search so structurally distinct actives are not silently lost. Dependencies are selected and locked during implementation. A hosted API or distributed engine is outside the first milestone.
 
 Core Python >=3.10 and legacy GS-Meta Python 3.7 use separate environments. Exchange ordered molecule IDs, fingerprint/edge artifacts, manifests, and predictions. Avoid imports from mutable baseline paths. Use a pinned isolated upstream copy or an attributed port after license review.
 
